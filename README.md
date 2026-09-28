@@ -1,4 +1,4 @@
-# smartform-js
+# SmartForm JS SDK — drop-in vanilla JS HTML form helper, zero dependencies
 
 Tiny vanilla-JS helper to wire any HTML form to [SmartForm AI](https://usesmartform.com).
 
