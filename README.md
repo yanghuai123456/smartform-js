@@ -55,7 +55,42 @@ python -m http.server 8000
 3. Invokes `onSuccess` or `onError`.
 
 If the user has JS disabled, the form falls back to the native `application/x-www-form-urlencoded` POST, which the API also accepts.
+## Related examples
+[Vite + React contact form](https://github.com/yanghuai123456/smartform-example-vite-react) | [Vite + Vue 3 contact form](https://github.com/yanghuai123456/smartform-example-vite-vue) | [smartform-cli](https://github.com/yanghuai123456/smartform-cli)
+
+
+## FAQ
+
+### Why use this instead of Formspree?
+
+Both SmartForm and Formspree let you POST a plain HTML form to a hosted
+endpoint with no backend. SmartForm adds an AI spam filter (not just
+honeypots), AI intent classification (`sales` / `support` / `inquiry`)
+and high-value lead detection, with a free tier that includes the spam
+filter. Formspree charges per submission; SmartForm's spam filter is
+free on every plan.
+
+### Is there a free tier?
+
+Yes. AI spam filtering is enabled by default on every plan. AI intent
+classification and high-value lead detection require a paid plan (Pro
+or Business) — the dashboard enforces this and returns HTTP 402 if
+you try to enable them on a free workspace.
+
+### Do I need an API key?
+
+No. The form posts directly to a public endpoint using only an 8-char
+form ID, which is non-enumerable. The example also includes a hidden
+`_gotcha` honeypot field so naive bots cannot submit.
+
+### Do I need React?
+No. This is plain vanilla JavaScript with zero dependencies. One `attachSmartForm(formEl)` call wires up any existing `<form>` element.
+
+## Related examples
+[Vite + React contact form](https://github.com/yanghuai123456/smartform-example-vite-react) | [Vite + Vue 3 contact form](https://github.com/yanghuai123456/smartform-example-vite-vue) | [smartform-cli](https://github.com/yanghuai123456/smartform-cli)
+
 
 ## License
 
 MIT.
+
