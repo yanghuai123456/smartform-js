@@ -1,0 +1,15 @@
+{
+  "name": "smartform-js",
+  "version": "0.1.0",
+  "description": "Tiny vanilla-JS helper for SmartForm AI. No deps, no build, no React.",
+  "type": "module",
+  "main": "src/attachSmartForm.js",
+  "exports": {
+    ".": "./src/attachSmartForm.js"
+  },
+  "files": [
+    "src",
+    "README.md"
+  ],
+  "license": "MIT"
+}

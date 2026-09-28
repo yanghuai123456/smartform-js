@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>smartform-js demo</title>
+  <style>
+    body { font: 16px/1.4 system-ui; max-width: 480px; margin: 40px auto; padding: 0 16px; }
+    form { display: grid; gap: 12px; }
+    input, textarea, button { font: inherit; padding: 8px 10px; }
+    textarea { min-height: 100px; }
+    button[type="submit"] { background: #7c3aed; color: #fff; border: 0; cursor: pointer; }
+    .ok   { color: #166534; }
+    .err  { color: #991b1b; }
+  </style>
+</head>
+<body>
+  <h1>smartform-js demo</h1>
+  <p>Replace <code>f_abc12345</code> in <code>demo.html</code> with your real form ID from
+     <a href="https://usesmartform.com/dashboard">usesmartform.com/dashboard</a>.</p>
+
+  <form id="contact">
+    <input name="name"    placeholder="Name"    required />
+    <input name="email"   type="email" placeholder="Email" required />
+    <textarea name="message" placeholder="Message" required></textarea>
+    <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"
+           style="position:absolute;left:-9999px" aria-hidden="true" />
+    <button type="submit">Send</button>
+    <p id="status"></p>
+  </form>
+
+  <script type="module">
+    import { attachSmartForm } from './src/attachSmartForm.js';
+    const status = document.getElementById('status');
+    attachSmartForm('#contact', {
+      formId:   'f_abc12345',                      // <-- replace
+      endpoint: 'https://api.usesmartform.com/api/v1/f',
+      onSuccess: (data) => {
+        status.className = 'ok';
+        status.textContent = `Sent! submission_id=${data.submission_id}, intent=${data.intent}`;
+      },
+      onError: (err) => {
+        status.className = 'err';
+        status.textContent = `Error: ${err.message} (code=${err.code || 'n/a'})`;
+      },
+    });
+  </script>
+</body>
+</html>
