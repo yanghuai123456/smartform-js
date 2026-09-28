@@ -4,6 +4,24 @@ Tiny vanilla-JS helper to wire any HTML form to [SmartForm AI](https://usesmartf
 
 No dependencies, no build step, no React. One `attachSmartForm(formEl, opts)` call and you're done.
 
+## What `attachSmartForm` sends
+
+The helper reads every field from the form, then POSTs JSON to
+`https://api.usesmartform.com/api/v1/f/{formId}` with
+`Accept: application/json` so the API returns JSON (not a 302). It
+honours the same reserved fields as the plain HTML form:
+
+| Field | Behaviour |
+|---|---|
+| `_gotcha` | Read from `[name="_gotcha"]` if present. If non-empty, the submission is **not** sent — `onSuccess` is called with `{ is_spam: true }` to keep your UI consistent. |
+| `_next` | Read from the `redirect` option and sent as `_next` in the JSON body. The API echoes the URL back in `next_url`; the helper passes it to `onSuccess` and your code navigates manually. |
+| `_subject` | Pass-through. Set `formData.set('_subject', '...')` before `attachSmartForm` and the API will use it for the notification email. |
+| Everything else | Sent verbatim as JSON properties. |
+
+If JS is disabled, the helper is bypassed entirely and the browser
+falls back to the native `application/x-www-form-urlencoded` POST,
+which the API also accepts.
+
 ## Usage
 
 ```html
@@ -55,20 +73,32 @@ python -m http.server 8000
 3. Invokes `onSuccess` or `onError`.
 
 If the user has JS disabled, the form falls back to the native `application/x-www-form-urlencoded` POST, which the API also accepts.
-## Related examples
-[Vite + React contact form](https://github.com/yanghuai123456/smartform-example-vite-react) | [Vite + Vue 3 contact form](https://github.com/yanghuai123456/smartform-example-vite-vue) | [smartform-cli](https://github.com/yanghuai123456/smartform-cli)
 
 
 ## FAQ
 
 ### Why use this instead of Formspree?
 
-Both SmartForm and Formspree let you POST a plain HTML form to a hosted
-endpoint with no backend. SmartForm adds an AI spam filter (not just
-honeypots), AI intent classification (`sales` / `support` / `inquiry`)
-and high-value lead detection, with a free tier that includes the spam
-filter. Formspree charges per submission; SmartForm's spam filter is
-free on every plan.
+At the basic level, SmartForm and Formspree are very similar: get a
+form ID, POST a plain HTML form to a hosted endpoint with `_gotcha`
+for spam filtering, and the API delivers the submission. The reserved
+fields (`_gotcha`, `_next`, `_subject`, honeypot aliases) are
+Formspree-compatible — a migration does not require renaming
+anything.
+
+The differences are operational, not API surface:
+
+- **No email confirmation flow.** Formspree requires verifying your
+  domain before submissions reach your inbox; SmartForm submissions
+  land in your dashboard immediately.
+- **AI spam filtering on the free tier.** Formspree's free tier uses
+  only a honeypot field, which catches naive bots but lets semantic
+  spam through. SmartForm applies AI-based classification by default,
+  free of charge.
+- **AI intent classification** (`sales` / `support` / `inquiry`
+  / `spam`) on the Pro tier, for routing submissions without writing
+  rules yourself.
+- **No per-submission metering** on the basic plan.
 
 ### Is there a free tier?
 
