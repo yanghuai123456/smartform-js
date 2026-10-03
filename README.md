@@ -58,7 +58,7 @@ python -m http.server 8000
 ### `attachSmartForm(target, options)`
 
 - `target` — CSS selector or DOM element for the `<form>`.
-- `options.formId` *(required)* — 8-char form ID from your SmartForm dashboard.
+- `options.formId` *(required)* — form ID from your SmartForm dashboard (e.g. `12345678` or `yRB9tFiq`).
 - `options.endpoint` *(optional)* — defaults to `https://api.usesmartform.com/api/v1/f`. Use `http://localhost:8000/api/v1/f` for local dev.
 - `options.redirect` *(optional)* — same-origin URL to navigate to after a successful submission. Internally sets `_next` (which the API honours for browser submissions).
 - `options.onSuccess(data)` — `{ submission_id, is_spam, intent, next_url }`.
@@ -94,7 +94,7 @@ form ID, which is non-enumerable. The example also includes a hidden
 No. This is plain vanilla JavaScript with zero dependencies. One `attachSmartForm(formEl)` call wires up any existing `<form>` element.
 
 ## Related examples
-[Vite + React contact form](https://github.com/yanghuai123456/smartform-example-vite-react) | [Vite + Vue 3 contact form](https://github.com/yanghuai123456/smartform-example-vite-vue) | [smartform-cli](https://github.com/yanghuai123456/smartform-cli)
+[Vite + React contact form](https://github.com/smartformai/smartform-example-vite-react) | [Vite + Vue 3 contact form](https://github.com/smartformai/smartform-example-vite-vue) | [smartform-cli](https://github.com/smartformai/smartform-cli)
 
 
 ## License

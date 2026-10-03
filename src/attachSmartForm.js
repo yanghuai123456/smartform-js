@@ -5,8 +5,8 @@ const DEFAULT_ENDPOINT = 'https://api.usesmartform.com/api/v1/f';
 
 export function attachSmartForm(target, options = {}) {
   if (!options.formId) throw new Error('smartform: formId is required');
-  if (!/^f_[A-Za-z0-9_-]{4,}$/.test(options.formId)) {
-    throw new Error('smartform: formId must look like f_xxxxxxxx (8 chars after the prefix)');
+  if (!/^[A-Za-z0-9_-]{4,}$/.test(options.formId)) {
+    throw new Error('smartform: formId must be at least 4 chars of letters, digits, "_" or "-"');
   }
 
   const form = typeof target === 'string' ? document.querySelector(target) : target;

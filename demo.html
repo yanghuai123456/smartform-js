@@ -15,7 +15,7 @@
 </head>
 <body>
   <h1>smartform-js demo</h1>
-  <p>Replace <code>f_abc12345</code> in <code>demo.html</code> with your real form ID from
+  <p>Replace <code>12345678</code> in <code>demo.html</code> with your real form ID from
      <a href="https://usesmartform.com/dashboard">usesmartform.com/dashboard</a>.</p>
 
   <form id="contact">
@@ -32,7 +32,7 @@
     import { attachSmartForm } from './src/attachSmartForm.js';
     const status = document.getElementById('status');
     attachSmartForm('#contact', {
-      formId:   'f_abc12345',                      // <-- replace
+      formId:   'abcdefgh',                   // <-- replace with your real 8-char form ID
       endpoint: 'https://api.usesmartform.com/api/v1/f',
       onSuccess: (data) => {
         status.className = 'ok';
