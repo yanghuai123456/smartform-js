@@ -37,7 +37,7 @@ which the API also accepts.
 <script type="module">
   import { attachSmartForm } from './attachSmartForm.js';
   attachSmartForm('#contact', {
-    formId: 'f_abc12345',                  // get from https://usesmartform.com/dashboard
+    formId: 'abcdefgh',                  // get from https://usesmartform.com/dashboard
     endpoint: 'https://api.usesmartform.com/api/v1/f',  // default; override for self-host
     redirect: '/thanks.html',              // optional: same-origin URL to redirect after success
     onSuccess: (data) => console.log(data),  // { submission_id, is_spam, intent, next_url }
